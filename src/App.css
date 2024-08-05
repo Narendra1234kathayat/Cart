@@ -1,0 +1,14 @@
+.card-body{
+    z-index: -10 !important;
+}
+.card:hover .card-body{
+    z-index: 20 !important;
+
+}
+.card:hover .imagee{
+    filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+.card-body{
+    transition: z-index 0.2s ease-in-out;
+}
