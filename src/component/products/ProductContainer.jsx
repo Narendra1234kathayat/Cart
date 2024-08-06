@@ -25,7 +25,7 @@ const ProductContainer = () => {
   }
 
   if (error) {
-    return <div className="text-white text-center pt-20">Error: {error}</div>;
+    return <div className="text-white bg-black h-screen sm:text-6xl text-center pt-20">something went wrong</div>;
   }
 
   return (

@@ -12,14 +12,14 @@ const cartSlice = createSlice({
     reducers: {
         addproduct(state, action) {
            // state.cart.push(action.payload);
-            console.log(action.payload.id);
+            // console.log(action.payload.id);
             const findItem = state.cart.find(item => {return item.id === action.payload.id});
             //console.log(findItem);
             if (findItem) {
                 findItem.quantity +=1;
-                console.log(findItem.price);
+                // console.log(findItem.price);
                 state.totalPrice = state.totalPrice + findItem.price
-                console.log("yes");
+                // console.log("yes");
             }else{
                 state.cart.push(action.payload)
                 state.totalPrice = state.totalPrice + action.payload.price;
@@ -30,7 +30,7 @@ const cartSlice = createSlice({
             if (productToRemove) {
                 const totalpricetoremove = productToRemove.price * productToRemove.quantity;
                 state.cart = state.cart.filter(product => product.id !== action.payload.id);
-                console.log(state.totalPrice)
+                // console.log(state.totalPrice)
                 state.totalPrice -= totalpricetoremove;
                 state.totalItem -= productToRemove.quantity;
             }

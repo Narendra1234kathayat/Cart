@@ -26,7 +26,7 @@ const Login = () => {
       if (res.status === 200) {
         const data=res.data.token;
         const userdetail=res.data.finduser;
-        console.log(data,userdetail);
+        // console.log(data,userdetail);
         
         await localStorage.setItem("AuthToken",data )
         localStorage.setItem("userdetail",JSON.stringify(userdetail))

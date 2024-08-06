@@ -13,7 +13,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status !== 200) {
       console.log('error response')
-      // Handle 401 error, e.g., redirect to login or refresh token
+      
     }
     return Promise.reject(error)
   },

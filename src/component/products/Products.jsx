@@ -6,7 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { MdDeleteForever } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-const Products = ({ product, loading }) => {
+const Products = ({ product,   }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

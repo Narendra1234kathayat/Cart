@@ -37,7 +37,7 @@ const navbar = () => {
    <Link to="/"className="btn btn-ghost text-xl">Products....</Link>
   </div>
   <div className="flex-none">
-    <div className="dropdown dropdown-end">
+    {userdetail ? <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
         <div className="indicator">
           <svg
@@ -67,7 +67,7 @@ const navbar = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> : ""}
     {userdetail  ? <div className="dropdown dropdown-end">
      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">

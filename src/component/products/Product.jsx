@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useFetchProducts from '../hooks/useFetchProducts';
 import { useDispatch } from 'react-redux';
 import toast, { Toaster } from "react-hot-toast";
 import { addproduct } from "../../Store/Slices/cartSlice";
+
 const Product = () => {
   const { id } = useParams();
   const { products, loading } = useFetchProducts();
-  const filterproduct = products.find(product => product?.id === parseInt(id));
+  const [mainImage, setMainImage] = useState(null);
   const dispatch = useDispatch();
+
+  const filterproduct = products.find(product => product?.id === parseInt(id));
+
+  useEffect(() => {
+    if (filterproduct) {
+      setMainImage(filterproduct.images[0]);
+    }
+  }, [filterproduct]);
 
   const handlebuyproduct = (product) => {
     const sendData = {
@@ -22,19 +31,55 @@ const Product = () => {
     dispatch(addproduct(sendData));
   };
 
+  const handleThumbnailClick = (image) => {
+    setMainImage(image);
+  };
+
   return (
     <div className='pt-28 container mx-auto bg-black text-white'>
-      {loading && <p className=' bg-black text-white h-screen'>Loading...</p>}
+      {loading && (
+        <div className="border border-blue-300 shadow rounded-md p-4 container grid grid-cols-1 gap-4 h-screen w-screen mx-auto">
+          <div className="animate-pulse flex space-x-4 w-full">
+            <div className=" bg-slate-700 h-[50%] w-[50%]"></div>
+            <div className="flex-1 space-y-6 py-1">
+              <div className="h-2 bg-slate-700 rounded"></div>
+              <div className="space-y-3">
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="h-2 bg-slate-700 col-span-2"></div>
+                  <div className="h-2 bg-slate-700 col-span-1"></div>
+                  <div className="h-2 bg-slate-700 col-span-1"></div>
+                  <div className="h-2 bg-slate-700 col-span-1"></div>
+                  <div className="h-2 bg-slate-700 col-span-1"></div>
+                  <div className="h-2 bg-slate-700 col-span-1"></div>
+                </div>
+                <div className="h-2 bg-slate-700 rounded"></div>
+                <div className="h-2 bg-slate-700 rounded"></div>
+                <div className="h-2 bg-slate-700 rounded"></div>
+                <div className="h-2 bg-slate-700 rounded"></div>
+                <div className="h-2 bg-slate-700 rounded"></div>
+                <div className="h-2 bg-slate-700 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {filterproduct ? (
         <div>
-          <Toaster/>
+          <Toaster />
           <div className='product-detail grid grid-cols-1 md:grid-cols-2 gap-4'>
             <div className='main-image'>
-              <img src={filterproduct.images[0]} alt={filterproduct.title} className='w-full h-80 object-cover' />
-              <div className='thumbnail-images flex space-x-2 mt-4 overflow-x-auto'>
+              <div className='h-80'>
+                {mainImage && <img src={mainImage} alt={filterproduct.title} className='w-full h-full object-contain' />}
+              </div>
+              <div className='thumbnail-images flex space-x-2 overflow-x-auto'>
                 {filterproduct.images.map((image, index) => (
                   <div key={index} className='thumbnail'>
-                    <img src={image} alt={`${filterproduct.title} ${index}`} className='h-28 w-28 object-cover cursor-pointer' />
+                    <img
+                      src={image}
+                      alt={`${filterproduct.title} ${index}`}
+                      className='h-28 w-28 object-cover cursor-pointer'
+                      onClick={() => handleThumbnailClick(image)}
+                    />
                   </div>
                 ))}
               </div>
@@ -49,7 +94,7 @@ const Product = () => {
               </p>
               <p>Quantity: {filterproduct.stock}</p>
               <p className='text-xl font-bold text-green-600 mt-4'>Price: ₹ {filterproduct.price}</p>
-              <button className='bg-green-500 px-4 py-2 rounded-md' onClick={()=>handlebuyproduct(filterproduct)}>BUY IT</button>
+              <button className='bg-green-500 px-4 py-2 rounded-md' onClick={() => handlebuyproduct(filterproduct)}>BUY IT</button>
 
               <div className='mt-4'>
                 <h3 className='text-lg font-semibold'>Additional Information</h3>
@@ -79,14 +124,12 @@ const Product = () => {
               <p>No reviews yet.</p>
             )}
           </div>
-
-          
         </div>
       ) : (
         !loading && <p>Product not found</p>
       )}
     </div>
   );
-}
+};
 
 export default Product;

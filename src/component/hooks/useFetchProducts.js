@@ -1,6 +1,7 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import axiosInstance from "../AxiosInterceptor/AxiosInterceptor";
 
 const useFetchProducts = () => {
     const [loading, setLoading] = useState(false);
@@ -11,7 +12,7 @@ const useFetchProducts = () => {
         const getProducts = async () => {
             setLoading(true);
             try {
-                const res = await axios.get("https://dummyjson.com/products");
+                const res = await axiosInstance.get("https://dummyjson.com/products");
                 setProducts(res.data.products);
               //  console.log(res.data.products)
             } catch (error) {
