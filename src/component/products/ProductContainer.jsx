@@ -29,7 +29,7 @@ const ProductContainer = () => {
   }
 
   return (
-    <div className='grid sm:grid-cols-1 md:grid-cols-3 gap-3 bg-black h-full pt-16'>
+    <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 bg-black h-full pt-16 container mx-auto'>
       {products?.map((product) => (
         <Products key={product.id} product={product} />
       ))}

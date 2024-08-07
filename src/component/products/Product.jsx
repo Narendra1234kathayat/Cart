@@ -19,7 +19,7 @@ const Product = () => {
     }
   }, [filterproduct]);
 
-  const handlebuyproduct = (product) => {
+  const handlebuyproduct = async(product) => {
     const sendData = {
       id: product.id,
       title: product.title,
@@ -27,8 +27,9 @@ const Product = () => {
       quantity: 1,
       images: product.images[0],
     };
+    await dispatch(addproduct(sendData));
     toast.success("Product added successfully");
-    dispatch(addproduct(sendData));
+    
   };
 
   const handleThumbnailClick = (image) => {

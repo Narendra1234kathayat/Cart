@@ -17,12 +17,14 @@ const cartSlice = createSlice({
             //console.log(findItem);
             if (findItem) {
                 findItem.quantity +=1;
+                state.totalItem +=1;
                 // console.log(findItem.price);
                 state.totalPrice = state.totalPrice + findItem.price
                 // console.log("yes");
             }else{
                 state.cart.push(action.payload)
                 state.totalPrice = state.totalPrice + action.payload.price;
+                state.totalItem +=1;
             }
         },
         removeproduct(state, action) {
@@ -40,6 +42,7 @@ const cartSlice = createSlice({
             if(findproduct){
                 findproduct.quantity +=1;
                 state.totalPrice+= findproduct.price
+                state.totalItem +=1;
             }
         },
         reduceQuantity(state, action) {
